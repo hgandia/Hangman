@@ -1,5 +1,6 @@
 from generator import phrase_generator
 from menu import menu
+from hangman import hangman
 
 hangman_count = 0
 
@@ -9,55 +10,55 @@ alphabet = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N"
 
 selected_option = menu()
 
-def display_puzzle():
-    new_message = ''
+#Function to hang the man
 
-    for char in message:
-        if char == '\'' or char == "\"" or char == '-' or char == " ":
-            new_message += char
-        else:
-            new_message += '_'
-    #print("\n\n")
-    #print(new_message)
-    return new_message
-
-def reveal_puzzle(letter):
+#Function to display puzzle on screen
+def display_puzzle(partial_puzzle):
+    secret_message = ''
+    if partial_puzzle == '':
+        for char in message:
+            if char == '\'' or char == "\"" or char == '-' or char == " ":
+                secret_message += char
+            else:
+                secret_message += '_'
+        return(secret_message)
+    else:
+        return partial_puzzle
+            
+#Function to reveal letter if in puzzle
+def reveal_puzzle(letter, partial_message):
     puzzle = [character for character in message] #converts string to list, an item per character in the list puzzle
-    secret_message = display_puzzle() #message in secret in string form
+    secret_message = display_puzzle(partial_message) #message in secret in string form
     secret_message_list = [letter for letter in secret_message] #message in secret in list form
-
-    print(secret_message)
-    print("\n")
      
     for idx, char in enumerate(message):
         if char == letter:
-            #idx = message.index(char) #This always returns the index of the first intance of the character.  NOT GOOD!
             secret_message_list[idx] = puzzle[idx]
-            secret_message = ''.join(secret_message_list)
+            partial_message = ''.join(secret_message_list)  
+            print("\nGood Guess.\n") 
+        else:
+            hangman(hangman_count)
+    return(partial_message)
 
-            #Testing print outs
-            print("The current character in message is: ", message[idx])
-            print("The index is: ", idx)
-            print("puzzle[idx] = ", puzzle[idx])
-            print("secret_message_list[idx] = ", secret_message_list[idx])
-        print("The current letter is: ", char)
-        
-    print(secret_message)
-            
+#Main program
+while hangman_count <= 9:
+    if selected_option == "No" or selected_option == "no" or selected_option == "NO" or selected_option == "N" or selected_option == "n":
+        print("Good-bye Loser!")
+        break
+    else:
+        if hangman_count == 0:
+            print("\n\nThe puzzle category is:  ", category)
+            partial_message = ''
+        print("\nAvailable letters are: ", alphabet)
+        print("\n\n", display_puzzle(partial_message))
+        letter = input("\n\nPlease choose a letter: ")
+        print("\n")
+        letter = letter.upper()
+        if letter in alphabet:
+            alphabet.pop(alphabet.index(letter))
+        else:
+            print("You have guessed that letter already.\n")
+            continue
 
-
-
-#while True:
-if selected_option == "No" or selected_option == "no" or selected_option == "NO" or selected_option == "N" or selected_option == "n":
-    print("Good-bye Loser!")
-    #break
-else:
-    print("\n\nThe puzzle category is:  ", category)
-    
-    print("\nAvailable letters are: ", alphabet)
-    print("\n\n", display_puzzle())
-    
-    letter = input("\n\nPlease choose a letter: ")
-    print("\n")
-    letter = letter.upper()
-    reveal_puzzle(letter)
+        hangman_count += 1
+        partial_message = reveal_puzzle(letter, partial_message)    

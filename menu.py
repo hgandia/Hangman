@@ -9,6 +9,8 @@ def menu():
     print("                                 / \                                  ")
     print("**********************************************************************")
     print("**********************************************************************") 
+    print("**********************************************************************")
+    print("You have 9 guesses to solve the puzzle")
     option_selected = input("\nWould you like to play (Y/n)? ")
     option_selected.lower()
     return option_selected
