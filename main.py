@@ -7,7 +7,6 @@ category, message = phrase_generator() #destructuring the return statement from 
 alphabet = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
 selected_option = menu()
 wrong_guesses = 0
-puzzle_finished = False
 
 #Function to display puzzle on screen
 def display_puzzle(partial_puzzle):
@@ -47,7 +46,7 @@ while wrong_guesses < 9:
     if selected_option == "No" or selected_option == "no" or selected_option == "NO" or selected_option == "N" or selected_option == "n":
         print("Good-bye Loser!")
         break
-    else:
+    elif selected_option == "Yes" or selected_option == "yes" or selected_option == "YES" or selected_option == "Y" or selected_option == "y":
         if number_of_tries == 0:
             print("\n\nThe puzzle category is:  ", category)
             partial_message = ''
@@ -58,7 +57,6 @@ while wrong_guesses < 9:
             print("*******************")
             print("******YOU WIN******")
             print("*******************")
-            puzzle_finished = True
             break
         letter = input("\n\nPlease choose a letter: ")
         print("\n")
@@ -72,3 +70,6 @@ while wrong_guesses < 9:
         partial_message = reveal_puzzle(letter, partial_message)
         if wrong_guesses == 9:
             print("\nYOU LOSE!!")
+    else:
+        print("That is not an option.  Please select again.")
+        selected_option = menu()
