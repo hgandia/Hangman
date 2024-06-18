@@ -1,0 +1,1 @@
+This is a terminal base hangman game written in python.  You must guess a letter until the expression is solved.  If you guess a letter and it's not in the expression the hangman cartoon will begin to be drawn.  If the entire man is drawn the gamer loses.  If you figure out the whole expression before the man is drawn, you'll win the game.
