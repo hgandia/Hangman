@@ -13,7 +13,7 @@ def display_puzzle(partial_puzzle):
     secret_message = ''
     if partial_puzzle == '':
         for char in message:
-            if char == '\'' or char == "\"" or char == '-' or char == " ":
+            if char == '\'' or char == "\"" or char == '-' or char == " " or char == ',' or char == '.':
                 secret_message += char
             else:
                 secret_message += '_'
